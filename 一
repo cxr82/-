@@ -23,5 +23,5 @@ f=open(sys.argv[1],"r",encoding="UTF-8")
     return np.dot(vectors[0], vectors[1]) / (norm(vectors[0]) * norm(vectors[1]))
 
 f=open(sys.argv[3],"w",encoding="UTF-8") 
- f.write( str(jaccard_similarity(s1, s2))[0:4] ) 
+ f.write( str(tf_similarity(s1, s2))[0:4] ) 
  f.close() 
