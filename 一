@@ -1,0 +1,27 @@
+from sklearn.feature_extraction.text import CountVectorizer
+import numpy as np
+from scipy.linalg import norm
+import jieba
+
+f=open(sys.argv[1],"r",encoding="UTF-8") 
+ s1=f.read()#输入s1 
+ f=open(sys.argv[2],"r",encoding="UTF-8") 
+ s2=f.read()#输入s2 
+ f.close()
+ def tf_similarity(s1, s2):
+    def add_space(s):
+        s_list=jieba.cut(s,cut_all=True)
+        return ' '.join(list(s_list))
+
+    # 将字中间加入空格
+    s1, s2 = add_space(s1), add_space(s2)
+    # 转化为TF矩阵
+    cv = CountVectorizer(tokenizer=lambda s: s.split())
+    corpus = [s1, s2]
+    vectors = cv.fit_transform(corpus).toarray()
+    # 计算TF系数
+    return np.dot(vectors[0], vectors[1]) / (norm(vectors[0]) * norm(vectors[1]))
+
+f=open(sys.argv[3],"w",encoding="UTF-8") 
+ f.write( str(jaccard_similarity(s1, s2))[0:4] ) 
+ f.close() 
